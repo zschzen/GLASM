@@ -1,10 +1,18 @@
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./.github/assets/logo.svg">
+    <img alt="Logo" src="./.github/assets/logo.svg" width="100px" align="left">
+</picture>
+
 ### `OpenGL-ASM x64 NASM Project (GLASM)`
 
 [![License][license-badge]][LICENSE]
 
 Simple OpenGL demo rendering a triangle using GLFW and NASM assembly.
 
-<img width="512" height="440" alt="GLASM" src="https://github.com/user-attachments/assets/3bf8d210-a8cc-4617-bfb4-681094c927a0" />
+
+<p align="center">
+    <img width="49%" alt="GLASM" src="https://github.com/user-attachments/assets/3bf8d210-a8cc-4617-bfb4-681094c927a0" />
+</p>
 
 ## Features
 - Cross-platform support (macOS/Linux<sup>?</sup>/Windows<sup>?</sup>)
