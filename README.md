@@ -4,6 +4,8 @@
 
 Simple OpenGL demo rendering a triangle using GLFW and NASM assembly.
 
+<img width="912" height="740" alt="GLASM" src="https://github.com/user-attachments/assets/06f05e47-bdcc-494b-9311-4a6c7638834e" />
+
 ## Features
 - Cross-platform support (macOS/Linux<sup>?</sup>/Windows<sup>?</sup>)
 - GLFW window management
