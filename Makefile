@@ -18,21 +18,21 @@ MAC_FILES   :=
 
 ifdef SystemRoot
     # Windows-specific settings
-		# WARN: Windows platform was not tested
+    # WARN: Windows platform was not tested
     ASM_DEFINE  := -D WINDOWS
     ASMFLAGS    := -f win64 -I$(SRC_DIR)/
     EXE_EXT     := .exe
-		LINKFLAGS   := -mconsole -lglfw3 -lopengl32 -lgdi32 -luser32 -lkernel32
+    LINKFLAGS   := -mconsole -lglfw3 -lopengl32 -lgdi32 -luser32 -lkernel32
 else
     UNAME_S := $(shell uname -s)
     ifeq ($(UNAME_S),Darwin)
         # macOS-specific settings
         ASM_DEFINE  := -D MACOS
         ASMFLAGS    := -f macho64 -I$(SRC_DIR)/
-				LINKFLAGS   := -lglfw -framework Cocoa -framework IOKit -framework CoreFoundation -framework CoreVideo -framework OpenGL
+        LINKFLAGS   := -lglfw -framework Cocoa -framework IOKit -framework CoreFoundation -framework CoreVideo -framework OpenGL
     else
         # Linux-specific settings
-				# WARN: Linux platform was not tested
+        # WARN: Linux platform was not tested
         ASM_DEFINE  := -D LINUX
         ASMFLAGS    := -f elf64 -I$(SRC_DIR)/
         LINKFLAGS   := -no-pie -lglfw -lGL -lX11 -lpthread -lXrandr -lXi -ldl -lm
