@@ -1,0 +1,9 @@
+# Build artifacts
+/[Bb]uild/
+
+# System files
+.DS_Store
+*.swp
+*~
+*.bak
+
