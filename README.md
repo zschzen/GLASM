@@ -6,6 +6,7 @@
 ### `OpenGL-ASM x64 NASM Project (GLASM)`
 
 [![License][license-badge]][LICENSE]
+[![macOS Intel build](https://github.com/zschzen/GLASM/actions/workflows/macos.yml/badge.svg)](https://github.com/zschzen/GLASM/actions/workflows/macos.yml)
 
 Simple OpenGL demo rendering a triangle using GLFW and NASM assembly.
 
