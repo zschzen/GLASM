@@ -1,0 +1,45 @@
+name: macOS Intel build
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'src/**'
+      - 'Makefile'
+      - '.github/workflows/macos.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'src/**'
+      - 'Makefile'
+      - '.github/workflows/macos.yml'
+
+jobs:
+  build-macos:
+    runs-on: macos-13
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Homebrew
+        id: set-up-homebrew
+        uses: Homebrew/actions/setup-homebrew@main
+
+      - name: Install dependencies
+        run: |
+          brew update
+          brew install nasm glfw
+
+      - name: Show nasm version
+        run: nasm -v
+
+      - name: Run Makefile source check
+        run: make check-files
+
+      - name: Full build
+        run: make all
+
+      - name: List build directory
+        if: always()
+        run: ls -la build || true
+
