@@ -156,6 +156,48 @@ default rel  ; Make all memory references RIP-relative by default
     mcall glClearColor
 %endmacro
 
+; -----------------------------------------------------------------------------
+; Get a value from a struct
+;
+; Parameters:
+; %1 - Destination operand
+; %2 - Struct name ("struc_<name>")
+; %3 - Field name ("<name>.<field>")
+%macro SGET 3
+    mov %1, [struc_%2 + %2.%3]
+%endmacro
+
+; -----------------------------------------------------------------------------
+; Set a value in a struct
+;
+; Parameters:
+; %1 - Struct name ("struc_<name>")
+; %2 - Field name ("<name>.<field>")
+; %3 - Source operand
+%macro SSET 3
+    mov [struc_%1 + %1.%2], %3
+%endmacro
+
+; -----------------------------------------------------------------------------
+; Get address of a field in a struct
+;
+; Parameters:
+; %1 - Destination register
+; %2 - Struct name ("struc_<name>")
+; %3 - Field name ("<name>.<field>")
+%macro SADDR 3
+    lea %1, [struc_%2 + %2.%3]
+%endmacro
+
+; =============================================================================
+; Struct Definitions
+; =============================================================================
+
+; Define a struct for platform
+struc state
+    .window_handle: resq 1  ; Window handle (64-bit)
+endstruc
+
 ; =============================================================================
 ; External OpenGL and GLFW Functions
 ; =============================================================================
@@ -195,11 +237,15 @@ section .data
     WINDOW_WIDTH        equ 800
     WINDOW_HEIGHT       equ 600
 
+struc_state:
+    istruc state
+        at .window_handle, dq 0  ; NULL
+    iend
+
 ; =============================================================================
 ; Uninitialized Data
 ; =============================================================================
 section .bss
-    window      resq 1          ; GLFW window handle
     width       resd 1          ; Framebuffer width
     height      resd 1          ; Framebuffer height
 
@@ -288,20 +334,20 @@ MAIN:
     mcall glfwCreateWindow
     test rax, rax
     jz .cleanup                 ; Exit if window creation failed
-    mov [window], rax           ; Store window handle
+    SSET state, window_handle, rax
 
     ; Setup OpenGL Context
     ; -------------------------------------------------------------------------
-    mov rdi, [window]
+    SGET rdi, state, window_handle
     mcall glfwMakeContextCurrent
 
     ; Set keyboard callback
-    mov rdi, [window]
+    SGET rdi, state, window_handle
     lea rsi, [key_callback]
     mcall glfwSetKeyCallback
 
     ; Set window resize callback
-    mov rdi, [window]
+    SGET rdi, state, window_handle
     lea rsi, [window_resize_callback]
     mcall glfwSetFramebufferSizeCallback
 
@@ -340,7 +386,7 @@ MAIN:
 
     ; Present frame
     ; -------------------------------------------------------------------------
-    mov rdi, [window]
+    SGET rdi, state, window_handle
     mcall glfwSwapBuffers
 
     ; Poll for events
@@ -349,7 +395,7 @@ MAIN:
 
     ; Check if window should close
     ; -------------------------------------------------------------------------
-    mov rdi, [window]
+    SGET rdi, state, window_handle
     mcall glfwWindowShouldClose
     test rax, rax
     jz .main_loop               ; Should stay open?
