@@ -28,7 +28,8 @@ jobs:
             build-essential \
             nasm \
             pkg-config \
-            libglfw3-dev
+            libglfw3 libglfw3-dev \
+            libx11-dev libxcursor-dev libxrandr-dev libxinerama-dev libxi-dev libxext-dev libxfixes-dev libwayland-dev libxkbcommon-dev
 
       - name: Show nasm version
         run: nasm -v
