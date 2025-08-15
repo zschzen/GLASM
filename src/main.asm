@@ -412,6 +412,10 @@ MAIN:
     mov rax, 0x2000001          ; sys_exit on macOS
     xor rdi, rdi                ; Exit code 0
     syscall
+%elifidn __OUTPUT_FORMAT__, elf64
+    mov rax, 60                 ; system call for exit
+    xor rdi, rdi                ; Exit code 0
+    syscall
 %else
     xor eax, eax                ; Return 0
     add rsp, 32
