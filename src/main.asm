@@ -239,7 +239,7 @@ section .data
 
 struc_state:
     istruc state
-        at .window_handle, dq 0  ; NULL
+        at state.window_handle, dq 0
     iend
 
 ; =============================================================================
