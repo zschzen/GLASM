@@ -1,0 +1,45 @@
+name: linux-x86_64-build
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'src/**'
+      - 'Makefile'
+      - '.github/workflows/linux_x64.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'src/**'
+      - 'Makefile'
+      - '.github/workflows/linux_x64.yml'
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            build-essential \
+            nasm \
+            pkg-config \
+            libglfw3-dev
+
+      - name: Show nasm version
+        run: nasm -v
+
+      - name: Run Makefile source check
+        run: make check-files
+
+      - name: Full build
+        run: make all
+
+      - name: List build directory
+        if: always()
+        run: ls -la build || true
+
