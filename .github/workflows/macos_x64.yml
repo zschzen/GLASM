@@ -28,7 +28,7 @@ jobs:
       - name: Install dependencies
         run: |
           brew update
-          brew install nasm glfw
+          brew install nasm cmake
 
       - name: Show nasm version
         run: nasm -v
