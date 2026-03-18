@@ -74,6 +74,13 @@ default rel  ; Make all memory references RIP-relative by default
 %endrep
 %endmacro
 
+; Define a null-terminated string and its length
+; -----------------------------------------------------------------------------
+%macro DEFSTR 2
+    %1      db %2, 0
+    %1_len  equ $ - %1
+%endmacro
+
 ; Load float constants into the given register
 ; Uses immediate values or memory references as appropriate
 ;
@@ -220,8 +227,7 @@ mextern glColor3f, glVertex2f
 ; Data Section
 ; =============================================================================
 section .data
-    window_title    db "GLFW + OpenGL + x64-NASM", 0
-    window_title_len equ $ - window_title
+    DEFSTR window_title, "GLFW + OpenGL + x64-NASM"
 
     ; OpenGL constants
     GL_COLOR_BUFFER_BIT equ 0x00004000
