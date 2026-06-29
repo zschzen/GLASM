@@ -379,17 +379,17 @@ MAIN:
     mov rdi, GL_TRIANGLES
     mcall glBegin
 
-    ; 1st vertex - bottom left
-    color3f 1, 0, 0             ; Red color
-    vertex2f -1, -1             ; Bottom left position
+    ; red bottom left
+    color3f 1, 0, 0
+    vertex2f -1, -1
 
-    ; 2nd vertex - bottom right
-    color3f 0, 0, 1             ; Blue color
-    vertex2f 1, -1              ; Bottom right position
+    ; blue bottom right
+    color3f 0, 0, 1
+    vertex2f 1, -1
 
-    ; 3rd vertex - top center
-    color3f 0, 1, 0             ; Green color
-    vertex2f 0, 1               ; Top center position
+    ; green top center
+    color3f 0, 1, 0
+    vertex2f 0, 1
 
     ; End Drawing
     mcall glEnd
