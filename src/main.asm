@@ -209,6 +209,10 @@ endstruc
 ; External OpenGL and GLFW Functions
 ; =============================================================================
 
+; C Standard Library
+; -----------------------------------------------------------------------------
+mextern exit
+
 ; GLFW
 ; -----------------------------------------------------------------------------
 mextern glfwInit, glfwTerminate
@@ -412,22 +416,8 @@ MAIN:
 .cleanup:
     mcall glfwTerminate
 
-    ; Handle platform-specific exit
-    ; TODO: Make this more robust and cross-platform
-%ifidn __OUTPUT_FORMAT__, macho64
-    mov rax, 0x2000001          ; sys_exit on macOS
-    xor rdi, rdi                ; Exit code 0
-    syscall
-%elifidn __OUTPUT_FORMAT__, elf64
-    mov rax, 60                 ; system call for exit
-    xor rdi, rdi                ; Exit code 0
-    syscall
-%else
-    xor eax, eax                ; Return 0
-    add rsp, 32
-    pop rbp
-    ret
-%endif
+    xor rdi, rdi                ; Return status 0
+    mcall exit                  ; Call libc exit()
 
 ; vim:ft=nasm
 
