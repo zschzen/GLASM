@@ -30,6 +30,7 @@ jobs:
             cmake \
             pkg-config \
             libgl1-mesa-dev \
+            libglfw3-dev \
             libx11-dev libxcursor-dev libxrandr-dev libxinerama-dev libxi-dev libxext-dev libxfixes-dev libwayland-dev libxkbcommon-dev
 
       - name: Show nasm version

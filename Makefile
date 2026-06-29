@@ -79,7 +79,7 @@ check-files:
 # Linking
 $(TARGET): $(OBJS)
 	@echo "Linking   : $@"
-	@gcc $(LINKFLAGS) -o $@ $^
+	@gcc -o $@ $^ $(LINKFLAGS)
 
 # Assembly compilation
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.asm $(INC_PATHS) $(MAC_PATHS) | $(BUILD_DIR)

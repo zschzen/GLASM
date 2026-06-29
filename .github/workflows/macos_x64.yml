@@ -16,7 +16,7 @@ on:
 
 jobs:
   build-macos:
-    runs-on: macos-13
+    runs-on: macos-15-intel
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -28,7 +28,7 @@ jobs:
       - name: Install dependencies
         run: |
           brew update
-          brew install nasm cmake
+          brew install nasm cmake glfw
 
       - name: Show nasm version
         run: nasm -v
